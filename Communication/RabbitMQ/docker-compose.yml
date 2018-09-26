@@ -17,9 +17,7 @@ services:
       - sky-net
 
   rabbitmq-producer:
-    build:
-      context: .
-      dockerfile: producer/Dockerfile
+    build: ./producer 
     image: rabbitmq-producer:1.0.1
     environment: 
       - BROKER_ADDR=amqp://guest:guest@rabbitmq:5672/
@@ -32,9 +30,7 @@ services:
       - sky-net
 
   rabbitmq-consumer:
-    build:
-      context: .
-      dockerfile: consumer/Dockerfile
+    build: ./consumer 
     image: rabbitmq-consumer:1.0.1     
     environment: 
       - BROKER_ADDR=amqp://guest:guest@rabbitmq:5672/

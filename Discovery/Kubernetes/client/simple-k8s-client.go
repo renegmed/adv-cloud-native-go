@@ -21,10 +21,12 @@ func main() {
 }
 
 func initServiceURL() {
-	url = os.Getenv("SERVICE_URL")
+	url = os.Getenv("SERVICE_URL") // set in simple-k8s-client-deployment.yaml and simple-k8s-configmag.yaml
+	fmt.Printf("\tSERVICE_URL: %s", url)
 	if len(url) == 0 {
 		url = "http://simple-k8s-server:8080/info"
 	}
+	fmt.Printf("\tService ULR: %s", url)
 }
 
 func hello(t time.Time, client *http.Client) {

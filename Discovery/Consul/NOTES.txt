@@ -1,0 +1,119 @@
+Postman:
+
+   PUT http://localhost:8500/v1/agent/service/register
+
+
+Body/raw:
+
+{
+    "ID": "gin-web-01",
+    "Name": "gin-web",
+    "Tags": [
+        "cloud-native-go",
+        "v1"
+    ],
+    "Address": "gin-web-01",
+    "Port": 8080,
+    "EnableTagOverride": false,
+    "check": {
+        "id": "ping",
+        "name": "HTTP API on port 8080",
+        "http": "http://gin-web-01:8080/ping",
+        "interval": "5s",
+        "timeout": "1s"
+    }
+}
+
+
+GET http://localhost:8500/v1/agent/services
+
+{
+    "consul": {
+        "ID": "consul",
+        "Service": "consul",
+        "Tags": [],
+        "Address": "",
+        "Port": 8300,
+        "EnableTagOverride": false,
+        "CreateIndex": 0,
+        "ModifyIndex": 0
+    },
+    "gin-web-01": {
+        "ID": "gin-web-01",
+        "Service": "gin-web",
+        "Tags": [
+            "cloud-native-go",
+            "v1"
+        ],
+        "Address": "gin-web-01",
+        "Port": 8080,
+        "EnableTagOverride": false,
+        "CreateIndex": 0,
+        "ModifyIndex": 0
+    }
+}
+
+
+See registered service 
+
+http://localhost:8500/ui/#/dc1/services?condensed=false
+
+
+
+Register additional service 
+
+
+PUT http://localhost:8500/v1/agent/service/register
+
+
+Body/raw:
+
+{
+    "ID": "gin-web-02",
+    "Name": "gin-web",
+    "Tags": [
+        "cloud-native-go",
+        "v1"
+    ],
+    "Address": "gin-web-02",
+    "Port": 9000,
+    "EnableTagOverride": false,
+    "check": {
+        "id": "ping",
+        "name": "HTTP API on port 9090",
+        "http": "http://gin-web-02:9090/ping",
+        "interval": "5s",
+        "timeout": "1s"
+    }
+}
+
+
+
+
+Get Consul Critical Health Checks
+
+Stop gin-web-02
+
+    $ docker stop consul_gin-web-02_1
+
+
+GET http://localhost:8500/v1/health/state/critical
+
+[
+    {
+        "Node": "0143420f1079",
+        "CheckID": "service:gin-web-02",
+        "Name": "Service 'gin-web' check",
+        "Status": "critical",
+        "Notes": "",
+        "Output": "Get http://gin-web-02:9090/ping: dial tcp: lookup gin-web-02 on 127.0.0.11:53: no such host",
+        "ServiceID": "gin-web-02",
+        "ServiceName": "gin-web",
+        "ServiceTags": [
+            "cloud-native-go",
+            "v1"
+        ],
+        "CreateIndex": 80,
+        "ModifyIndex": 854
+    }
+]

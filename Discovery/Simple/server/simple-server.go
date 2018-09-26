@@ -25,19 +25,24 @@ func registerServiceWithConsul() {
 	}
 
 	var registration = new(consulapi.AgentServiceRegistration)
-
 	registration.ID = "simple-server"
 	registration.Name = "simple-server"
+
+	// Setup/prepate Consul registration
 
 	address := hostname()
 	registration.Address = address
 	port, _ := strconv.Atoi(port()[1:len(port())])
 	registration.Port = port
 
+	// Let consul service check if the service is live and healthy
+
 	registration.Check = new(consulapi.AgentServiceCheck)
 	registration.Check.HTTP = fmt.Sprintf("http://%s:%v/info", address, port)
 	registration.Check.Interval = "5s"
 	registration.Check.Timeout = "3s"
+
+	// Use the consul agent and register the service into it
 
 	consul.Agent().ServiceRegister(registration)
 }

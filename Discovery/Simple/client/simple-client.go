@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"time"
 
@@ -22,6 +23,7 @@ func main() {
 	callHelloEvery(5*time.Second, client)
 }
 
+// Connect to Consul
 func lookupServiceWithConsul() {
 	config := consulapi.DefaultConfig()
 	consul, error := consulapi.NewClient(config)
@@ -39,9 +41,12 @@ func lookupServiceWithConsul() {
 	port := service.Port
 
 	url = fmt.Sprintf("http://%s:%v/info", address, port)
+
 }
 
 func hello(t time.Time, client *http.Client) {
+	log.Printf("\tUrl Info: %s\n", url)
+
 	// Call the greeter
 	response, err := client.Get(url)
 

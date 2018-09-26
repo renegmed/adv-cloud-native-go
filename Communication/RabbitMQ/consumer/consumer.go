@@ -21,6 +21,7 @@ func main() {
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
+	// Declare the queue
 	q, err := ch.QueueDeclare(
 		queue(), // name
 		true,    // durable
@@ -31,6 +32,7 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
+	// register and get a message consumer
 	msgs, err := ch.Consume(
 		q.Name, // queue
 		"",     // consumer

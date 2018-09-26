@@ -1,0 +1,17 @@
+
+
+
+$> kubectl apply -f simple-k8s-server-deployment.yaml
+
+
+$> kubectl apply -f simple-k8s-server-service.yaml
+
+
+$> kubectl get pods 
+
+$> kubectl get services
+
+
+$> kubectl apply -f simple-k8s-configmap.yaml
+
+$> kubectl apply -f simple-k8s-client-deployment.yaml

@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	proto "github.com/lreimer/advanced-cloud-native-go/Communication/Go-Micro/proto"
+	proto "lreimer-adv-cloud-native-go/Communication/Go-Micro/server/proto"
+
 	micro "github.com/micro/go-micro"
 	"golang.org/x/net/context"
 )
@@ -44,7 +45,7 @@ func main() {
 	service.Init()
 
 	// Register handler
-	proto.RegisterGreeterHandler(service.Server(), new(Greeter))
+	proto.RegisterGreeterHandler(service.Server(), &Greeter{})
 
 	// Run the server
 	if err := service.Run(); err != nil {

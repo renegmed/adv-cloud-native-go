@@ -29,6 +29,7 @@ services:
     image: kafka-producer:1.0.1
     environment: 
       - BROKER_ADDR=kafka:9092
+      - TOPIC=How-to-become-a-millionaire
     depends_on:
       - zookeeper
       - kafka
@@ -43,7 +44,8 @@ services:
       dockerfile: subscriber/Dockerfile
     image: kafka-subscriber:1.0.1     
     environment: 
-      - BROKER_ADDR=kafka:9092 
+      - BROKER_ADDR=kafka:9092
+      - TOPIC=How-to-become-a-millionaire 
     depends_on:
       - zookeeper
       - kafka

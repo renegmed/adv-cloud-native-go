@@ -22,5 +22,6 @@ func port() string {
 	if len(port) == 0 {
 		port = "8080"
 	}
+	fmt.Printf("\t++++++Server Port: %s", ":"+port)
 	return ":" + port
 }
